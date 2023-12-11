@@ -1,5 +1,6 @@
 package br.com.alura.orgs.database
 
+import android.content.Context
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -18,4 +19,12 @@ Annotation TypeConverters -> A
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase(){
     abstract fun produtoDao(): ProdutoDao
+
+    /*
+    Função para criar a instação para a criaçao de um Banco de Dados, Se cria na biblioteca do ROOM
+    Usando o Companion Object Para se poder passar de forma estática.
+     */
+    fun instancia(context: Context) {
+
+    }
 }
