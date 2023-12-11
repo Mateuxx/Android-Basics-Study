@@ -6,7 +6,8 @@ import java.math.BigDecimal
 class Converters {
 
     /*
-    Converter double vindo do ROOM BigDecimal para usar no app
+    Converter double vindo do ROOM BigDecimal para usar no app por causa dos tipos de valores do ROMM
+    apenas por isso, caso isso não há necessidade.
      */
     @TypeConverter
     fun doubleToBigDecimal (valor: Double?) : BigDecimal {

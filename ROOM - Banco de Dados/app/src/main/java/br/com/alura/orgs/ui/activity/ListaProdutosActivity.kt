@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.com.alura.orgs.dao.ProdutosDao
+import br.com.alura.orgs.database.AppDatabase
 import br.com.alura.orgs.databinding.ActivityListaProdutosActivityBinding
 import br.com.alura.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 
@@ -25,7 +26,9 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        adapter.atualiza(dao.buscaTodos())
+        val db = AppDatabase.instancia(this)
+        val produtosDao = db.produtoDao()
+        adapter.atualiza(produtosDao.buscaTodos())
     }
 
     private fun configuraFab() {
@@ -35,7 +38,7 @@ class ListaProdutosActivity : AppCompatActivity() {
         }
     }
 
-     private fun vaiParaFormularioProduto() {
+    private fun vaiParaFormularioProduto() {
         val intent = Intent(this, FormularioProdutoActivity::class.java)
         startActivity(intent)
     }

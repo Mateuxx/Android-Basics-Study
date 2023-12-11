@@ -2,6 +2,7 @@ package br.com.alura.orgs.database
 
 import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import br.com.alura.orgs.coverter.Converters
@@ -17,14 +18,21 @@ Annotation TypeConverters -> A
  */
 @Database(entities = [Produto::class], version = 1)
 @TypeConverters(Converters::class)
-abstract class AppDatabase : RoomDatabase(){
+abstract class AppDatabase : RoomDatabase() {
     abstract fun produtoDao(): ProdutoDao
 
-    /*
-    Função para criar a instação para a criaçao de um Banco de Dados, Se cria na biblioteca do ROOM
-    Usando o Companion Object Para se poder passar de forma estática.
-     */
-    fun instancia(context: Context) {
-
+    companion object {
+        /*
+                Função para criar a instação para a criaçao de um Banco de Dados, Se cria na biblioteca do ROOM
+                Usando o Companion Object Para se poder passar de forma estática.
+                 */
+        fun instancia(context: Context): AppDatabase {
+                return Room.databaseBuilder(
+                context,
+                AppDatabase::class.java,
+                "orgs.db" // NOme do Bd que foi Construido!!
+            ).allowMainThreadQueries()
+                .build()
+        }
     }
 }
