@@ -3,6 +3,7 @@ package br.com.alura.orgs.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.room.Room
 import br.com.alura.orgs.database.AppDatabase
 import br.com.alura.orgs.databinding.ActivityListaProdutosActivityBinding
 import br.com.alura.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
@@ -19,14 +20,13 @@ class ListaProdutosActivity : AppCompatActivity() {
         setContentView(binding.root)
         configuraRecyclerView()
         configuraFab()
-
     }
 
     override fun onResume() {
         super.onResume()
         val db = AppDatabase.instancia(this)
-        val produtosDao = db.produtoDao()
-        adapter.atualiza(produtosDao.buscaTodos())
+        val produtoDao = db.produtoDao()
+        adapter.atualiza(produtoDao.buscaTodos())
     }
 
     private fun configuraFab() {

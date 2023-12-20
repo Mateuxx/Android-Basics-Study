@@ -32,12 +32,11 @@ class FormularioProdutoActivity : AppCompatActivity() {
 
     private fun configuraBotaoSalvar() {
         val botaoSalvar = binding.activityFormularioProdutoBotaoSalvar
-        // Instancia o BD -> como se tivesse criando um BD por aqui!!
         val db = AppDatabase.instancia(this)
         val produtoDao = db.produtoDao()
         botaoSalvar.setOnClickListener {
             val produtoNovo = criaProduto()
-            produtoDao.insereNoBanco(produtoNovo)
+            produtoDao.salva(produtoNovo)
             finish()
         }
     }

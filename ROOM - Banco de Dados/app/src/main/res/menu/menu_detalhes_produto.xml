@@ -3,10 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_editar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/menu_detalhes_produto_editar"
         android:icon="@drawable/ic_action_editar"
-        android:title="@string/editar"
+        android:title="Editar"
         app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/menu_detalhes_produto_remover"
+        android:title="Remover"
+        android:icon="@drawable/ic_action_remover"
+        app:showAsAction="ifRoom"/>
+
 </menu>
