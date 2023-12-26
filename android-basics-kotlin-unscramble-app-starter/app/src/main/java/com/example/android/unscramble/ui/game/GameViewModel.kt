@@ -12,11 +12,15 @@ class GameViewModel : ViewModel() {
     val score: Int
         get() = _score
 
-    private var currentWordCount = 0
+    private var _currentWordCount = 0
+    val currentWordCount: Int
+        get() = _currentWordCount
     /*
       Propriedade de apoio se pega fora do ViewModel a variável currentScrambledWord que é publica
       por padrão no Kotlin
+
      */
+    private var wordsList: MutableList<String> = mutableListOf()
     private lateinit var _currentScrambledWord: String
 
     val currentScrambledWord: String
@@ -30,6 +34,31 @@ class GameViewModel : ViewModel() {
     init {
         Log.d("GameFragment", "GameViewmodel Created!!! ")
         getNextWord()
+    }
+
+    /*
+   * Re-initializes the game data to restart the game.
+   */
+    fun reinitializeData() {
+        _score = 0
+        _currentWordCount = 0
+        wordsList.clear()
+        getNextWord()
+    }
+
+    /*
+   * Increases the game score if the player's word is correct.
+   */
+    private fun increaseScore() {
+        _score += SCORE_INCREASE
+    }
+
+    fun isUserWordCorrect(playerWord: String): Boolean {
+        if(playerWord.equals(currentWord,true)) {
+            increaseScore()
+            return true
+        }
+        return false
     }
 
     /*
@@ -52,7 +81,7 @@ class GameViewModel : ViewModel() {
             getNextWord()
         } else {
             _currentScrambledWord = String(tempWord)
-            ++currentWordCount
+            ++_currentWordCount
             wordslist.add(currentWord)
         }
     }
