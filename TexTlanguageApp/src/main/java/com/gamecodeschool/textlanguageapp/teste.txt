@@ -1,0 +1,36 @@
+To detect the language of text using the Text Classification API on Android (referred to as "Droid"), you can follow these steps:
+1. **Check TextClassificationManager Availability:**
+  Ensure that `TextClassificationManager` is available on the device.
+  ```java
+  TextClassificationManager textClassificationManager = getSystemService(TextClassificationManager.class);
+  if (textClassificationManager != null && textClassificationManager.isAvailable()) {
+      // TextClassificationManager is available on this device
+  }
+  ```
+2. **Create a TextClassifier:**
+  Obtain a `TextClassifier` instance from `TextClassificationManager`.
+  ```java
+  TextClassifier textClassifier = textClassificationManager.getTextClassifier();
+  ```
+3. **Classify Text:**
+  Use the `classifyText` method of `TextClassifier` to detect the language.
+  ```java
+  if (textClassifier != null) {
+      TextClassification textClassification = textClassifier.classifyText("Your input text");
+      // Access information from the TextClassification object
+  }
+  ```
+  Replace `"Your input text"` with the actual text you want to detect the language for.
+4. **Handle the Results:**
+  Access information from the `TextClassification` object. For language detection, you can retrieve the recognized language.
+  ```java
+  if (textClassification != null) {
+      String detectedLanguage = textClassification.getLanguage();
+      // Use detectedLanguage as needed
+  }
+  ```
+Please note that the availability and behavior of these classes may vary across Android versions. Always refer to the official Android documentation for the most up-to-date information:
+- [TextClassifier](https://developer.android.com/reference/android/view/textclassifier/TextClassifier)
+- [TextClassification](https://developer.android.com/reference/android/view/textclassifier/TextClassification)
+- [TextClassificationManager](https://developer.android.com/reference/android/view/textclassifier/TextClassificationManager)
+If you encounter issues or need more specific assistance, consider checking the Android developer community forums or relevant online communities for support.
