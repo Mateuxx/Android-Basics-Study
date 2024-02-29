@@ -19,16 +19,6 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Apenas para testes e ele ocorre de maneira sincrona -> testar courotines
-        runBlocking {
-            /*
-            ja usado no projeto esse sim cria uma nova thread e funciona em parealelo ao
-            runBlocking
-             */
-            launch {
-                Thread.sleep(2000)
-            }
-        }
         setContentView(binding.root)
         configuraRecyclerView()
         configuraFab()
