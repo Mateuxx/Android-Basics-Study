@@ -16,4 +16,4 @@ Este código usa fallbackToDestructiveMigration() ao construir o banco de dados 
 
 O método fallbackToDestructiveMigration() é chamado para configurar o Room para permitir migrações destrutivas. Isso significa que se houver uma alteração no esquema do banco de dados que não seja compatível com a versão anterior, o Room irá descartar todo o banco de dados e recriá-lo do zero. Isso é útil durante o desenvolvimento, mas não é recomendado para produção, pois leva à perda de dados.
 
-É importante notar que esse método não requer parâmetros. Ele simplesmente indica ao Room que migrações destrutivas são permitidas. Se você precisar de migrações não destrutivas, precisará fornecer migrações personalizadas usando addMigrations(), conforme explicado em outra parte do código ou do README.
+É importante notar que esse método não requer parâmetros. Ele simplesmente indica ao Room que migrações destrutivas são permitidas.
