@@ -16,9 +16,9 @@ class FormularioCadastroUsuarioActivity : AppCompatActivity() {
         ActivityFormularioCadastroUsuarioBinding.inflate(layoutInflater)
     }
 
-    //private val dao by lazy {
-      //  AppDatabase.instancia(this).usuarioDao()
-    //}
+    private val dao by lazy {
+        AppDatabase.instancia(this).usuarioDao()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,7 @@ class FormularioCadastroUsuarioActivity : AppCompatActivity() {
             //Lembrando que o room ele é pra ser usado corretamente dentro de threads.
             lifecycleScope.launch {
                 try {
-                    //dao.salva(novoUsuario)
+                    dao.salva(novoUsuario)
                     finish()
                 } catch (e: Exception) {
                     Log.e("CadastroUsuario", "configuraBotaoCadastrar: ", e )

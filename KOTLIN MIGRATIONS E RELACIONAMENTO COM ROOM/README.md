@@ -36,3 +36,8 @@ dados.
 **É importante notar que esse método não requer parâmetros. Ele simplesmente indica ao Room que
 migrações destrutivas são permitidas.**
 
+### .addMigrations ( )
+Criamos um Arquivo de dentro de **_datababe_** para poder colocar um file Migrations onde iremos
+colocar todas as nossas migrations dentro do projeto.
+
+![img.png](img.png)
