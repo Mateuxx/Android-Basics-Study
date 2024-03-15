@@ -1,6 +1,7 @@
 # Kotlin Migrations
 
-A migration ja ocorre de _**maneira automatica_** em alguns casos em novas versões do ROOM (**_olhar a
+A migration ja ocorre de _**maneira automatica_** em alguns casos em novas versões do ROOM (*
+*_olhar a
 documentação_**) porém dentro desse projeto poderemos trabalhar primeiro de maneira manual para que
 possamos tratar quando pegarmos um **projeto legado** no qual não poderemos atualizar a lib.
 
@@ -37,7 +38,16 @@ dados.
 migrações destrutivas são permitidas.**
 
 ### .addMigrations ( )
+
+No Room, o método addMigrations() é usado para aplicar migrações personalizadas ao banco de dados
+SQLite quando há uma alteração no esquema do banco de dados que não pode ser tratada pela migração
+destrutiva.
+
 Criamos um Arquivo de dentro de **_datababe_** para poder colocar um file Migrations onde iremos
 colocar todas as nossas migrations dentro do projeto.
 
 ![img.png](img.png)
+
+É uma prática recomendada criar uma classe separada, geralmente chamada Migration, onde você
+implementa as migrações necessárias para cada versão do banco de dados. Isso ajuda a manter o código
+limpo e organizado.
