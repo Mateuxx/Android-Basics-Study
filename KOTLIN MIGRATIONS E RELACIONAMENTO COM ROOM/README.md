@@ -1,15 +1,17 @@
 # Kotlin Migrations
 
-A migration ja ocorre de maneira automatica em alguns casos em novas versões do Room (**_olhar a
+A migration ja ocorre de _**maneira automatica_** em alguns casos em novas versões do ROOM (**_olhar a
 documentação_**) porém dentro desse projeto poderemos trabalhar primeiro de maneira manual para que
-possamos tratar quando pegarmos um **projeto legado** no qual não poderemos atualizar a lib
+possamos tratar quando pegarmos um **projeto legado** no qual não poderemos atualizar a lib.
+
 ## Visão Geral
 
 O Room é uma biblioteca de persistência de dados recomendada pelo Google para aplicativos Android.
 Ele oferece suporte à criação e gerenciamento de bancos de dados SQLite de forma mais fácil e
 eficiente.
 
-**_Link para a documentação Android Envolvendo o migrations_**:
+**_Link para a documentação Android Envolvendo o migrations_
+**:https://developer.android.com/training/data-storage/room/migrating-db-versions#test
 
 ### Migrations:
 
@@ -31,6 +33,6 @@ compatível com a versão anterior, o Room irá descartar todo o banco de dados 
 Isso é útil durante o desenvolvimento, mas não é recomendado para produção, pois leva à perda de
 dados.
 
-É importante notar que esse método não requer parâmetros. Ele simplesmente indica ao Room que
-migrações destrutivas são permitidas.
+**É importante notar que esse método não requer parâmetros. Ele simplesmente indica ao Room que
+migrações destrutivas são permitidas.**
 
