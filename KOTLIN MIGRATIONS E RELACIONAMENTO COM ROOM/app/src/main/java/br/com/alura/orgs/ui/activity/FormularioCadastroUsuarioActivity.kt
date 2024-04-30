@@ -15,7 +15,6 @@ class FormularioCadastroUsuarioActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityFormularioCadastroUsuarioBinding.inflate(layoutInflater)
     }
-
     private val dao by lazy {
         AppDatabase.instancia(this).usuarioDao()
     }
@@ -30,18 +29,15 @@ class FormularioCadastroUsuarioActivity : AppCompatActivity() {
         binding.activityFormularioCadastroBotaoCadastrar.setOnClickListener {
             val novoUsuario = criaUsuario()
             Log.i("CadastroUsuario", "onCreate: $novoUsuario")
-            //Ao cadastrar o produto adicionamos dentro do nosso banco de dados
-            // o novo usuairo dentro da thread
-            //Lembrando que o room ele é pra ser usado corretamente dentro de threads.
             lifecycleScope.launch {
                 try {
                     dao.salva(novoUsuario)
                     finish()
                 } catch (e: Exception) {
-                    Log.e("CadastroUsuario", "configuraBotaoCadastrar: ", e )
+                    Log.e("CadastroUsuario", "configuraBotaoCadastrar: ", e)
                     Toast.makeText(
                         this@FormularioCadastroUsuarioActivity,
-                        "Falha ao cadastrar o usuario",
+                        "Falha ao cadastrar usuário",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

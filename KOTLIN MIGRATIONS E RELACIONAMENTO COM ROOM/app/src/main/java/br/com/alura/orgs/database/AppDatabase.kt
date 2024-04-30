@@ -14,12 +14,8 @@ import br.com.alura.orgs.model.Usuario
 @Database(
     entities = [
         Produto::class,
-        Usuario::class // adicionando as entidades aqui
-        // A CADA MUDANÇA TEMOS QUE REVERTER AONDE ESTAVAMOS PARA GIRAR UMA
-        // NOVA NOVA MIGRATION POR ISSO AS COISAS QUE MUDAMOS AO EXEMPLIFICAR ESTÃO COMENTADAS.
+        Usuario::class
     ],
-    // A cada mudança no room seja qualquer coisa mesmo a gente tem que mudar a versão aqui
-    // pq seria um shema novo! caso o contrário dará erro!!!!!!
     version = 2,
     exportSchema = true
 )
@@ -28,7 +24,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun produtoDao(): ProdutoDao
 
-    abstract  fun usuarioDao(): UsuarioDao
+    abstract fun usuarioDao(): UsuarioDao
 
     companion object {
         @Volatile
@@ -38,12 +34,7 @@ abstract class AppDatabase : RoomDatabase() {
                 context,
                 AppDatabase::class.java,
                 "orgs.db"
-            // A cada mudança temos que chamar essa função!!
-            // Porem a cada mudanã será perdido todas as informações! - Não é uma boa Prática
-            // Não é recomendado!
-            // Interessante apenas quando estamso desenvolvendo nosso App!
-            ).addMigrations(MIGRATION1_2)
-                // Adicionaando uma Migration!!
+            ).addMigrations(MIGRATION_1_2)
                 .build().also {
                 db = it
             }
