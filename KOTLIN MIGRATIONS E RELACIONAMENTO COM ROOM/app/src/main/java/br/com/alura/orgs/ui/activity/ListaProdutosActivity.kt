@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import br.com.alura.orgs.database.AppDatabase
 import br.com.alura.orgs.databinding.ActivityListaProdutosActivityBinding
+import br.com.alura.orgs.extensions.vaiPara
 import br.com.alura.orgs.preferences.dataStore
 import br.com.alura.orgs.preferences.usuarioLogadoPreferences
 import br.com.alura.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
@@ -46,11 +47,15 @@ class ListaProdutosActivity : AppCompatActivity() {
                     usuarioDao.buscaPorId(usuarioId).collect {
                         Log.i("ListaProdutos", "onCreate: $it")
                     }
-                }
+                } ?: vaiParaLogin() // Elvis operator para setar caso seja nulo o usuario ele vai jogar para a tela de login e não inicializar com ela
             }
         }
     }
 
+    private fun vaiParaLogin() {
+        vaiPara(LoginActivity::class.java)
+        finish()
+    }
     private fun configuraFab() {
         val fab = binding.activityListaProdutosFab
         fab.setOnClickListener {
