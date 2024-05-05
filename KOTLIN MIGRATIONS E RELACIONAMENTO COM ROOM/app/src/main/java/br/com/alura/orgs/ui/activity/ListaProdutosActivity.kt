@@ -39,7 +39,8 @@ class ListaProdutosActivity : AppCompatActivity() {
                     adapter.atualiza(produtos)
                 }
             }
-
+            //Ter informação no qual a gente salvou, no qual todos consguem acessar essa informação
+            // do nosso dataStore
             dataStore.data.collect { preferences ->
                 preferences[usuarioLogadoPreferences]?.let { usuarioId ->
                     usuarioDao.buscaPorId(usuarioId).collect {

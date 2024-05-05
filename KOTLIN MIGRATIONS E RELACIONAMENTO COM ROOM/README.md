@@ -51,3 +51,20 @@ colocar todas as nossas migrations dentro do projeto.
 É uma prática recomendada criar uma classe separada, geralmente chamada Migration, onde você
 implementa as migrações necessárias para cada versão do banco de dados. Isso ajuda a manter o código
 limpo e organizado.
+
+
+### DataStore
+
+Documentação:
+
+O DataStore é uma solução de armazenamento de dados recomendada pela Google para aplicativos
+Android. Ele oferece uma maneira fácil e segura de armazenar dados chave-valor ou objetos complexos
+de forma assíncrona, substituindo o SharedPreferences. O DataStore utiliza os princípios de Kotlin
+coroutines e permite que você armazene e recupere dados de forma eficiente, mantendo a consistência
+e a integridade dos dados. Além disso, o DataStore oferece suporte a observação de mudanças nos
+dados, facilitando a atualização da interface do usuário quando os dados são alterados. É uma
+alternativa moderna e robusta para persistência de dados em aplicativos Android.
+
+Basicamente quando queremos deixar o usuario logado ao app quando entramos novamente em algum app.
+Por exemplo: Quando entramos ao instagram, ja estamos logados todas as vezes nas quais entramos la.
+
