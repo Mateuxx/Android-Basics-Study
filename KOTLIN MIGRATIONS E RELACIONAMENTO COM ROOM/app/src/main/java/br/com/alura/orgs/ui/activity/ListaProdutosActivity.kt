@@ -3,8 +3,12 @@ package br.com.alura.orgs.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
+import br.com.alura.orgs.R
 import br.com.alura.orgs.database.AppDatabase
 import br.com.alura.orgs.databinding.ActivityListaProdutosActivityBinding
 import br.com.alura.orgs.extensions.vaiPara
@@ -42,20 +46,52 @@ class ListaProdutosActivity : AppCompatActivity() {
             }
             //Ter informação no qual a gente salvou, no qual todos consguem acessar essa informação
             // do nosso dataStore
-            dataStore.data.collect { preferences ->
-                preferences[usuarioLogadoPreferences]?.let { usuarioId ->
-                    usuarioDao.buscaPorId(usuarioId).collect {
-                        Log.i("ListaProdutos", "onCreate: $it")
-                    }
-                } ?: vaiParaLogin() // Elvis operator para setar caso seja nulo o usuario ele vai jogar para a tela de login e não inicializar com ela
+            launch {
+                dataStore.data.collect { preferences ->
+                    preferences[usuarioLogadoPreferences]?.let { usuarioId ->
+                        launch {
+                            usuarioDao.buscaPorId(usuarioId).collect {
+                                Log.i("ListaProdutos", "onCreate: $it")
+                            }
+                        }
+                    } ?: vaiParaLogin() // Elvis operator para setar caso seja nulo o usuario ele vai jogar para a tela de login e não inicializar com ela
+                }
             }
         }
     }
+
+    // criação do menu para aparecer na tela
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_lista_produtos, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    /**
+     *Ação para sair do app caso criado, no caso temos que remover a tag que passamos para ela remover
+     * do nosso datastore, lembrando que cada ação dentro do DataStore deve ser feita dentro do nosso
+     * um escope routine
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_lista_produtos_sair_app -> {
+                lifecycleScope.launch {
+                    dataStore.edit { preferences ->
+                        // Remove a nossa tag que faz o user ficar logado fazendo assim que saimamos
+                        // do app.
+                        preferences.remove(usuarioLogadoPreferences)
+                    }
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     private fun vaiParaLogin() {
         vaiPara(LoginActivity::class.java)
         finish()
     }
+
     private fun configuraFab() {
         val fab = binding.activityListaProdutosFab
         fab.setOnClickListener {
