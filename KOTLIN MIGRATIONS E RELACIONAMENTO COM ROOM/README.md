@@ -77,4 +77,4 @@ alternativa moderna e robusta para persistência de dados em aplicativos Android
 Basicamente quando queremos deixar o usuario logado ao app quando entramos novamente em algum app.
 Por exemplo: Quando entramos ao instagram, ja estamos logados todas as vezes nas quais entramos la.
 
-- salva **protocol buffer** tbm. Estudar mais sobre isso!
+- Proto DataStore salva **protocol buffer** tbm. Estudar mais sobre isso!

@@ -47,6 +47,11 @@ class ListaProdutosActivity : AppCompatActivity() {
             //Ter informação no qual a gente salvou, no qual todos consguem acessar essa informação
             // do nosso dataStore
             launch {
+                /**
+                 * Ler os dados no quais estão no data store se tiver o usuario no flow ou seja,
+                 * o usuaŕio ja está conectado, se não tiver logado (id for nulo) ele vai para
+                 * a tela de login!
+                 */
                 dataStore.data.collect { preferences ->
                     preferences[usuarioLogadoPreferences]?.let { usuarioId ->
                         launch {
