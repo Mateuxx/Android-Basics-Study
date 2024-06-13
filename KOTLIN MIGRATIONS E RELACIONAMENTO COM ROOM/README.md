@@ -53,9 +53,18 @@ implementa as migrações necessárias para cada versão do banco de dados. Isso
 limpo e organizado.
 
 
+
+### Preferences 
+
+Salvar dados primitivios a partir de chave e valor
+
+- SharedPreferences: Api do android no qual temos acesso em todas aplicação
+- vem do SDK do android
+- Solução antiga, Nova solução é o 
+
 ### DataStore
 
-Documentação:
+Documentação: 
 
 O DataStore é uma solução de armazenamento de dados recomendada pela Google para aplicativos
 Android. Ele oferece uma maneira fácil e segura de armazenar dados chave-valor ou objetos complexos
@@ -68,3 +77,4 @@ alternativa moderna e robusta para persistência de dados em aplicativos Android
 Basicamente quando queremos deixar o usuario logado ao app quando entramos novamente em algum app.
 Por exemplo: Quando entramos ao instagram, ja estamos logados todas as vezes nas quais entramos la.
 
+- salva **protocol buffer** tbm. Estudar mais sobre isso!
