@@ -12,15 +12,21 @@ interface UsuarioDao {
     @Insert
     suspend fun salva(usuario: Usuario)
 
-    @Query("""
+    @Query(
+        """
         SELECT * FROM Usuario 
         WHERE id = :usuarioId 
-        AND senha = :senha""")
+        AND senha = :senha"""
+    ) // Bater com as informações com as coisas que estão na tabela de usuários
     suspend fun autentica(
         usuarioId: String,
         senha: String
     ): Usuario?
 
+    /**
+     * Buscar usuarios para buscar por id
+     * @return flow -> para poder fazer atualizações automaticas
+     */
     @Query("SELECT * FROM Usuario WHERE id = :usuarioId")
     fun buscaPorId(usuarioId: String): Flow<Usuario>
 

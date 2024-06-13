@@ -54,7 +54,8 @@ class ListaProdutosActivity : AppCompatActivity() {
                                 Log.i("ListaProdutos", "onCreate: $it")
                             }
                         }
-                    } ?: vaiParaLogin() // Elvis operator para setar caso seja nulo o usuario ele vai jogar para a tela de login e não inicializar com ela
+                    } ?: vaiParaLogin() // Elvis operator para setar caso seja nulo o usuario
+                // ele vai jogar para a tela de login e não inicializar com ela
                 }
             }
         }
