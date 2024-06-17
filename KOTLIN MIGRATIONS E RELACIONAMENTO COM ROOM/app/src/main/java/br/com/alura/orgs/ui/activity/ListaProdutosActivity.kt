@@ -50,7 +50,7 @@ class ListaProdutosActivity : AppCompatActivity() {
                 /**
                  * Ler os dados no quais estão no data store se tiver o usuario no flow ou seja,
                  * o usuaŕio ja está conectado, se não tiver logado (id for nulo) ele vai para
-                 * a tela de login!z
+                 * a tela de login!!!
                  */
                 dataStore.data.collect { preferences ->
                     preferences[usuarioLogadoPreferences]?.let { usuarioId ->
@@ -67,7 +67,9 @@ class ListaProdutosActivity : AppCompatActivity() {
         }
     }
 
-    // criação do menu para aparecer na tela
+    /**
+     * Criação do menu para "Sair do app"
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_lista_produtos, menu)
         return super.onCreateOptionsMenu(menu)

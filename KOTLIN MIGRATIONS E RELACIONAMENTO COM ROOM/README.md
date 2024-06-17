@@ -79,7 +79,7 @@ Por exemplo: Quando entramos ao instagram, ja estamos logados todas as vezes nas
 
 - Proto DataStore salva **protocol buffer** tbm. Estudar mais sobre isso!
 
-### Comportamento 
+### Comportamento Do app: 
 
 - Funcionalidade de deixar o usuário sempre logado assim que ele logou a primeira vez.
   - Mudar qual a tela que inicia ao inserir o app
