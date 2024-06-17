@@ -59,7 +59,8 @@ class ListaProdutosActivity : AppCompatActivity() {
                                 Log.i("ListaProdutos", "onCreate: $it")
                             }
                         }
-                    } ?: vaiParaLogin() // Elvis operator para setar caso seja nulo o usuario
+                    } ?: vaiParaLogin() // Elvis operator para setar caso seja nulo o usuario e mandar
+                    //para tela de login
                 // ele vai jogar para a tela de login e não inicializar com ela
                 }
             }
@@ -92,10 +93,13 @@ class ListaProdutosActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-
+    /**
+     * Função que é criada para apontar para a tela de login
+     * Usada caso o usuário não esteja logado
+     */
     private fun vaiParaLogin() {
         vaiPara(LoginActivity::class.java)
-        finish()
+        finish() // finaliza a tela de produtos!
     }
 
     private fun configuraFab() {

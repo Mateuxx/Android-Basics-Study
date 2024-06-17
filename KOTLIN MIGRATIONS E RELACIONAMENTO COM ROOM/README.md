@@ -78,3 +78,12 @@ Basicamente quando queremos deixar o usuario logado ao app quando entramos novam
 Por exemplo: Quando entramos ao instagram, ja estamos logados todas as vezes nas quais entramos la.
 
 - Proto DataStore salva **protocol buffer** tbm. Estudar mais sobre isso!
+
+### Comportamento 
+
+- Funcionalidade de deixar o usuário sempre logado assim que ele logou a primeira vez.
+  - Mudar qual a tela que inicia ao inserir o app
+  - No caso, como o usuário ja realizou o login, não precisamos ficar  mostrar a tela de login toda 
+que ele for iniciado
+
+- Suporte para o usuário ter a escolha de sair do app e logar com outro usuário
