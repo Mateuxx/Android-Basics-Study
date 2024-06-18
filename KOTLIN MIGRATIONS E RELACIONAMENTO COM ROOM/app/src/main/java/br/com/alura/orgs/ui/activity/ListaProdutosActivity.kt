@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.edit
+import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import br.com.alura.orgs.R
 import br.com.alura.orgs.database.AppDatabase
@@ -15,7 +16,10 @@ import br.com.alura.orgs.extensions.vaiPara
 import br.com.alura.orgs.preferences.dataStore
 import br.com.alura.orgs.preferences.usuarioLogadoPreferences
 import br.com.alura.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 
@@ -38,12 +42,7 @@ class ListaProdutosActivity : AppCompatActivity() {
         setContentView(binding.root)
         configuraRecyclerView()
         configuraFab()
-        lifecycleScope.launch {
-            launch {
-                produtoDao.buscaTodos().collect { produtos ->
-                    adapter.atualiza(produtos)
-                }
-            }
+        lifecycle.coroutineScope.launch {
             //Ter informação no qual a gente salvou, no qual todos consguem acessar essa informação
             // do nosso dataStore
             launch {
@@ -52,17 +51,47 @@ class ListaProdutosActivity : AppCompatActivity() {
                  * o usuaŕio ja está conectado, se não tiver logado (id for nulo) ele vai para
                  * a tela de login!!!
                  */
-                dataStore.data.collect { preferences ->
-                    preferences[usuarioLogadoPreferences]?.let { usuarioId ->
-                        launch {
-                            usuarioDao.buscaPorId(usuarioId).collect {
-                                Log.i("ListaProdutos", "onCreate: $it")
-                            }
-                        }
-                    } ?: vaiParaLogin() // Elvis operator para setar caso seja nulo o usuario e mandar
-                    //para tela de login
-                // ele vai jogar para a tela de login e não inicializar com ela
+                verificaUsuarioLogado()
+            }
+        }
+    }
+
+    private suspend fun verificaUsuarioLogado() {
+        dataStore.data.collect { preferences ->
+            preferences[usuarioLogadoPreferences]?.let { usuarioId ->
+                buscaUsuario(usuarioId)
+            }
+                ?: vaiParaLogin() // Elvis operator para setar caso seja nulo o usuario e mandar
+            //para tela de login
+            // ele vai jogar para a tela de login e não inicializar com ela
+        }
+    }
+
+    private fun buscaUsuario(usuarioId: String) {
+
+        lifecycleScope.launch {
+            /**
+             * first() -> retorna a primeiro elemento de emitido por um flow
+             * e cancela o flows collection. Como se cortasse algumas coisas
+             * ele pode devolver nullPointerExecption
+             */
+            /**
+             * first() -> retorna a primeiro elemento de emitido por um flow
+             * e cancela o flows collection. Como se cortasse algumas coisas
+             * ele pode devolver nullPointerExecption
+             */
+            usuarioDao.buscaPorId(usuarioId).firstOrNull()?.let {
+                launch {
+                    buscaProdutosUsuario()
                 }
+            }
+        }
+    }
+
+    private fun CoroutineScope.buscaProdutosUsuario() {
+        launch {
+            produtoDao.buscaTodos().collect { produtos ->
+                adapter.atualiza(produtos)
             }
         }
     }
@@ -83,16 +112,22 @@ class ListaProdutosActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_lista_produtos_sair_app -> {
-                lifecycleScope.launch {
-                    dataStore.edit { preferences ->
-                        // Remove a nossa tag que faz o user ficar logado fazendo assim que saimamos
-                        // do app.
-                        preferences.remove(usuarioLogadoPreferences)
-                    }
+                lifecycle.coroutineScope.launch {
+                    deslogaUsuario()
                 }
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    /**
+     *   Remove a nossa tag que faz o user ficar logado fazendo assim que saimamos
+     *    do app.
+     */
+    private suspend fun deslogaUsuario() {
+        dataStore.edit { preferences ->
+            preferences.remove(usuarioLogadoPreferences)
+        }
     }
 
     /**
@@ -129,7 +164,6 @@ class ListaProdutosActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
 
 
 }

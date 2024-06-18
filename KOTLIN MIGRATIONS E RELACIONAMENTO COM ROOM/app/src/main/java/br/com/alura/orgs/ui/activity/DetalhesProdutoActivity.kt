@@ -3,10 +3,9 @@ package br.com.alura.orgs.ui.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.coroutineScope
 import br.com.alura.orgs.R
 import br.com.alura.orgs.database.AppDatabase
 import br.com.alura.orgs.databinding.ActivityDetalhesProdutoBinding
@@ -39,7 +38,7 @@ class DetalhesProdutoActivity : AppCompatActivity() {
     }
 
     private fun buscaProduto() {
-        lifecycleScope.launch {
+        lifecycle.coroutineScope.launch {
             produtoDao.buscaPorId(produtoId).collect { produtoEncontrado ->
                 produto = produtoEncontrado
                 produto?.let {
@@ -58,7 +57,7 @@ class DetalhesProdutoActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.menu_detalhes_produto_remover -> {
                 produto?.let {
-                    lifecycleScope.launch {
+                    lifecycle.coroutineScope.launch {
                         produtoDao.remove(it)
                         finish()
                     }

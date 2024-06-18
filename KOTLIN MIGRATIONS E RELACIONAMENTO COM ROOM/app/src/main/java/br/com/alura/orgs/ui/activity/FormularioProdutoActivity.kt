@@ -3,7 +3,7 @@ package br.com.alura.orgs.ui.activity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.coroutineScope
 import br.com.alura.orgs.database.AppDatabase
 import br.com.alura.orgs.database.dao.ProdutoDao
 import br.com.alura.orgs.databinding.ActivityFormularioProdutoBinding
@@ -44,7 +44,7 @@ class FormularioProdutoActivity : AppCompatActivity() {
                 }
         }
         tentaCarregarProduto()
-        lifecycleScope.launch {
+        lifecycle.coroutineScope.launch {
             dataStore.data.collect { preferences ->
                 preferences[usuarioLogadoPreferences]?.let { usuarioId ->
                     usuarioDao.buscaPorId(usuarioId).collect {
@@ -65,7 +65,7 @@ class FormularioProdutoActivity : AppCompatActivity() {
     }
 
     private fun tentaBuscarProduto() {
-        lifecycleScope.launch {
+        lifecycle.coroutineScope.launch {
             produtoDao.buscaPorId(produtoId).collect {
                 it?.let { produtoEncontrado ->
                     title = "Alterar produto"
@@ -92,7 +92,7 @@ class FormularioProdutoActivity : AppCompatActivity() {
 
         botaoSalvar.setOnClickListener {
             val produtoNovo = criaProduto()
-            lifecycleScope.launch {
+            lifecycle.coroutineScope.launch {
                 produtoDao.salva(produtoNovo)
                 finish()
             }
