@@ -52,19 +52,17 @@ colocar todas as nossas migrations dentro do projeto.
 implementa as migrações necessárias para cada versão do banco de dados. Isso ajuda a manter o código
 limpo e organizado.
 
-
-
-### Preferences 
+### Preferences
 
 Salvar dados primitivios a partir de chave e valor
 
 - SharedPreferences: Api do android no qual temos acesso em todas aplicação
 - vem do SDK do android
-- Solução antiga, Nova solução é o 
+- Solução antiga, Nova solução é o
 
 ### DataStore
 
-Documentação: 
+Documentação:
 
 O DataStore é uma solução de armazenamento de dados recomendada pela Google para aplicativos
 Android. Ele oferece uma maneira fácil e segura de armazenar dados chave-valor ou objetos complexos
@@ -79,11 +77,25 @@ Por exemplo: Quando entramos ao instagram, ja estamos logados todas as vezes nas
 
 - Proto DataStore salva **protocol buffer** tbm. Estudar mais sobre isso!
 
-### Comportamento Do app: 
+### Comportamento Do app:
 
 - Funcionalidade de deixar o usuário sempre logado assim que ele logou a primeira vez.
-  - Mudar qual a tela que inicia ao inserir o app
-  - No caso, como o usuário ja realizou o login, não precisamos ficar  mostrar a tela de login toda 
-que ele for iniciado
+    - Mudar qual a tela que inicia ao inserir o app
+    - No caso, como o usuário ja realizou o login, não precisamos ficar mostrar a tela de login toda
+      que ele for iniciado
 
 - Suporte para o usuário ter a escolha de sair do app e logar com outro usuário
+
+- Vincular essas ações a apenas um usuário especfico
+    - vincular os produtos para apenas esse usuário especifico
+
+### Activity de Base
+
+- Uma activity que mantem toda uma lógica na qual se quer ser compartilhado entre várias activitis
+  do projeto.
+
+![img_1.png](img_1.png)
+
+- As activities que herdarem os comportamentos dela herdem não mais **AppCompactActivity**
+- Atentando para que precisamos utilizar O **StateFlow** e no formato liveData
+  - Uma copia para ser alterado e outro privado que faz a mudança internamente
