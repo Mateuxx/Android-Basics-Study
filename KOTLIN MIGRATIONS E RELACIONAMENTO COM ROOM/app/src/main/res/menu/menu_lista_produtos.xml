@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_lista_produtos_sair_app"
-        android:icon="@drawable/baseline_exit_to_app_24"
+        android:id="@+id/menu_lista_produtos_perfil_usuario"
+        android:icon="@drawable/baseline_person_24"
         android:title="Sair do App"
         app:showAsAction="ifRoom" />
 </menu>

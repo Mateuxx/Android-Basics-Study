@@ -99,3 +99,7 @@ Por exemplo: Quando entramos ao instagram, ja estamos logados todas as vezes nas
 - As activities que herdarem os comportamentos dela herdem não mais **AppCompactActivity**
 - Atentando para que precisamos utilizar O **StateFlow** e no formato liveData
   - Uma copia para ser alterado e outro privado que faz a mudança internamente
+
+### ICONES DO APP 
+
+A respeito do modo no qual devemos deixar no **showASAction** colocar como: **ifRoom**

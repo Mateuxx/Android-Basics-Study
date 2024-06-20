@@ -8,6 +8,7 @@ import androidx.lifecycle.coroutineScope
 import br.com.alura.orgs.R
 import br.com.alura.orgs.database.AppDatabase
 import br.com.alura.orgs.databinding.ActivityListaProdutosActivityBinding
+import br.com.alura.orgs.extensions.vaiPara
 import br.com.alura.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collect
@@ -64,16 +65,13 @@ class ListaProdutosActivity : UsuarioBaseActivity() {
     }
 
     /**
-     *Ação para sair do app caso criado, no caso temos que remover a tag que passamos para ela remover
-     * do nosso datastore, lembrando que cada ação dentro do DataStore deve ser feita dentro do nosso
-     * um escope routine
+     *Ação de menu perfil usuario, no qual, quando for clicado ele irá redirecionar para a tela de
+     *  perfil de usuário.
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_lista_produtos_sair_app -> {
-                lifecycle.coroutineScope.launch {
-                    deslogaUsuario()
-                }
+            R.id.menu_lista_produtos_perfil_usuario-> {
+                vaiPara(PerfilUsuarioActivity::class.java)
             }
         }
         return super.onOptionsItemSelected(item)

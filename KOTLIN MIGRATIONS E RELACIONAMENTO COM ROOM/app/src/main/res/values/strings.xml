@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Orgs</string>
+    <string name="userid">userId</string>
+    <string name="username">userName</string>
+    <string name="sair_do_app">Sair do App</string>
 </resources>
