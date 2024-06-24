@@ -37,8 +37,8 @@ abstract class UsuarioBaseActivity : AppCompatActivity() {
      * Caso contrario irar esperar a thread toda ser finalizad
      * Sempre passadno um estado inicial
      */
-    private var _usuario: MutableStateFlow<Usuario?> = MutableStateFlow(null)
-    protected var usuario: StateFlow<Usuario?> = _usuario
+    private val _usuario: MutableStateFlow<Usuario?> = MutableStateFlow(null)
+    protected val usuario: StateFlow<Usuario?> = _usuario
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,8 +53,7 @@ abstract class UsuarioBaseActivity : AppCompatActivity() {
         dataStore.data.collect { preferences ->
             preferences[usuarioLogadoPreferences]?.let { usuarioId ->
                 buscaUsuario(usuarioId)
-            }
-                ?: vaiParaLogin() // Elvis operator para setar caso seja nulo o usuario e mandar
+            } ?: vaiParaLogin() // Elvis operator para setar caso seja nulo o usuario e mandar
             //para tela de login
             // ele vai jogar para a tela de login e não inicializar com ela
         }
@@ -71,7 +70,9 @@ abstract class UsuarioBaseActivity : AppCompatActivity() {
          * e cancela o flows collection. Como se cortasse algumas coisas
          * ele pode devolver nullPointerExecption
          */
-        _usuario.value = usuarioDao.buscaPorId(usuarioId).firstOrNull()
+        _usuario.value = usuarioDao.buscaPorId(usuarioId).firstOrNull().also {
+            _usuario.value = it
+        }
     }
 
 
