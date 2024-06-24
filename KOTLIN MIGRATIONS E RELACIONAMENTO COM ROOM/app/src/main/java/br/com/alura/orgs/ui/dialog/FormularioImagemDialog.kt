@@ -36,10 +36,6 @@ class FormularioImagemDialog(private val context: Context) {
                     }
                     .show()
             }
-
-
-
-
     }
 
 }
