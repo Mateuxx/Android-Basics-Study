@@ -40,17 +40,20 @@ class ListaProdutosActivity : UsuarioBaseActivity() {
                 usuario
                     .filterNotNull() // só era fazer um collect quando esse usuario for diferente
                     // de null
-                    .collect {
-                        buscaProdutosUsuario()
+                    .collect { usuario ->
+                        // Busca apenas para esse usuario especifio
+                       // Caso Cadastremos um novo usuario, não irá aparecer nenhum produto em sua lista
+                        //Comportamento ideal!!
+                        buscaProdutosUsuario(usuario.id)
                     }
             }
         }
     }
 
 
-    private fun CoroutineScope.buscaProdutosUsuario() {
+    private fun CoroutineScope.buscaProdutosUsuario(usuarioId: String) {
         launch {
-            produtoDao.buscaTodos().collect { produtos ->
+            produtoDao.buscaTodosDoUsuario(usuarioId).collect { produtos ->
                 adapter.atualiza(produtos)
             }
         }
