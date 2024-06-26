@@ -22,7 +22,9 @@ class FormNotaActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityFormNotaBinding.inflate(layoutInflater)
     }
+    //Recurso mais reativo para armazenar as aulas
     private var imagem: MutableStateFlow<String?> = MutableStateFlow(null)
+
     private val dao by lazy {
         AppDatabase.instancia(this).notaDao()
     }
@@ -69,6 +71,9 @@ class FormNotaActivity : AppCompatActivity() {
             }
     }
 
+    /**
+     * Pegar a extra de uma intent ->
+     */
     private fun tentaCarregarIdDaNota() {
         notaId = intent.getLongExtra(NOTA_ID, 0L)
     }
