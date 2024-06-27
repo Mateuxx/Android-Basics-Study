@@ -22,7 +22,8 @@ class FormNotaActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityFormNotaBinding.inflate(layoutInflater)
     }
-    //Recurso mais reativo para armazenar as aulas
+
+    //Recurso mais reativo para armazenar as Imagens
     private var imagem: MutableStateFlow<String?> = MutableStateFlow(null)
 
     private val dao by lazy {
@@ -72,12 +73,16 @@ class FormNotaActivity : AppCompatActivity() {
     }
 
     /**
-     * Pegar a extra de uma intent ->
+     * Pegar a extra(dados adicionais no qual podem ser anexados a uma intente) de uma intent
+     * e a a passando como valor com o ID correto passando
      */
     private fun tentaCarregarIdDaNota() {
         notaId = intent.getLongExtra(NOTA_ID, 0L)
     }
 
+    /**
+     * chama o dialog para carregar a imagem
+     */
     private fun configuraImagem() {
         binding.activityFormNotaAdicionarImagem.setOnClickListener {
             FormImagemDialog(this)
@@ -89,16 +94,24 @@ class FormNotaActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Criação do menu da tela de listas
+     * Adicionar e remover
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.form_nota_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
+    /**
+     * Acções dos menuns
+      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.form_nota_menu_salvar -> {
                 salva()
             }
+
             R.id.form_nota_menu_remover -> {
                 remove()
             }
@@ -106,6 +119,9 @@ class FormNotaActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    /**
+     * Exclui a nota do BD
+     */
     private fun remove() {
         lifecycleScope.launch {
             dao.remove(notaId)
@@ -113,6 +129,9 @@ class FormNotaActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Salve a nota
+     */
     private fun salva() {
         val nota = criaNota()
         lifecycleScope.launch {
@@ -121,6 +140,9 @@ class FormNotaActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Cria a nota e salva no Database
+     */
     private fun criaNota(): Nota {
         val titulo = binding.activityFormNotaTitulo.text.toString()
         val descricao = binding.activityFormNotaDescricao.text.toString()

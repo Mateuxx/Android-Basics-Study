@@ -38,6 +38,9 @@ class ListaNotasActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Botão para chamar a activity "FormNotaActivity" quando clicado
+     */
     private fun configuraFab() {
         binding.activityListaNotasFab.setOnClickListener {
             Intent(this, FormNotaActivity::class.java).apply {
@@ -46,6 +49,9 @@ class ListaNotasActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * RecyclerView Stuff
+     */
     private fun configuraRecyclerView() {
         binding.activityListaNotasRecyclerview.adapter = adapter
         adapter.quandoClicaNoItem = { nota ->
