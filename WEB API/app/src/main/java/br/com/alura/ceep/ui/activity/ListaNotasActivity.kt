@@ -2,6 +2,7 @@ package br.com.alura.ceep.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +12,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import br.com.alura.ceep.database.AppDatabase
 import br.com.alura.ceep.databinding.ActivityListaNotasBinding
 import br.com.alura.ceep.extensions.vaiPara
+import br.com.alura.ceep.model.Nota
 import br.com.alura.ceep.ui.recyclerview.adapter.ListaNotasAdapter
+import br.com.alura.ceep.webclient.RetrofitInicializador
 import kotlinx.coroutines.launch
+import retrofit2.Call
 
 class ListaNotasActivity : AppCompatActivity() {
 
@@ -35,6 +39,15 @@ class ListaNotasActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 buscaNotas()
             }
+        }
+        //Executa a requisição -> Buscar todas as notas
+        val call: Call<List<Nota>> = RetrofitInicializador().notaService.buscaTodas()
+        //por meio do call.execute() nos temos acesso a resposta dessa requesição
+        val resposta = call.execute()
+        //Queremos ver o body da requisição que seria basicamente o arquivo.jason
+        resposta.body()?.let { notas ->
+            Log.i("ListaNOtas", "onCreate: $notas")
+            
         }
     }
 

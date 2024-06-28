@@ -7,7 +7,8 @@ import retrofit2.http.GET
 interface NotaService {
     /**
      * Busca no corpo da requisição  na respota esqperando uma lista do tipo nota
+     * localhost:8080/notas
      */
-    @GET
+    @GET("notas")
     fun buscaTodas(): Call<List<Nota>>
 }

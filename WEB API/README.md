@@ -48,3 +48,8 @@ porem o que a comunidade realmente usa **seria o retrofit mesmo**!
 ### Permissão de acesso a internet 
 No android manifest:
 <uses-permission android:name="android.permission.INTERNET" />
+
+### Convertando formato da requisição: 
+![img_1.png](img_1.png)
+Se chamarmos assim, o app irá quebrar pois ele sempre vai dar um erro no qual **teremos que
+converter o tipo do jason para algum objeto reoconhecido pelo java/kotlin**(o que ainda não fazemos)
