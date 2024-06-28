@@ -45,3 +45,6 @@ Lib no qual a comunidade usa para fazer requisições web
   - Volley (google)
 porem o que a comunidade realmente usa **seria o retrofit mesmo**!
 
+### Permissão de acesso a internet 
+No android manifest:
+<uses-permission android:name="android.permission.INTERNET" />
