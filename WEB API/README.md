@@ -29,3 +29,8 @@ Activities) ou serviços (Services).
 - Trasnferencia Representacional de Estado
 - Padrão para fazer essa comunicação entre os dispositivos
 - Formato Jason
+
+**Outras APIS públicas** https://github.com/public-apis/public-apis
+
+### API 
+- A API utilizada nesse projeto eh uma local desenvolvida em Spring Boot
