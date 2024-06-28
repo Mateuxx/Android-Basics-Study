@@ -34,3 +34,14 @@ Activities) ou serviços (Services).
 
 ### API 
 - A API utilizada nesse projeto eh uma local desenvolvida em Spring Boot
+
+ 
+### Retrofit 
+Lib no qual a comunidade usa para fazer requisições web
+ 
+- **Serialização automatica para corpos** de serialização do corpo de uma requisição
+- Existem outras libs como:
+  - Ktor
+  - Volley (google)
+porem o que a comunidade realmente usa **seria o retrofit mesmo**!
+
