@@ -32,24 +32,31 @@ Activities) ou serviços (Services).
 
 **Outras APIS públicas** https://github.com/public-apis/public-apis
 
-### API 
+### API
+
 - A API utilizada nesse projeto eh uma local desenvolvida em Spring Boot
+- Como rodar a api:
+    - a partir de um terminal ou prompt de comando, acesse o diretório/pasta onde o arquivo
+      server.jar está e rode o seguinte comando java -jar server.jar.
+    - acessando o endereço http://localhost:8080 
 
- 
-### Retrofit 
+### Retrofit
+
 Lib no qual a comunidade usa para fazer requisições web
- 
-- **Serialização automatica para corpos** de serialização do corpo de uma requisição
-- Existem outras libs como:
-  - Ktor
-  - Volley (google)
-porem o que a comunidade realmente usa **seria o retrofit mesmo**!
 
-### Permissão de acesso a internet 
+- **Serialização automatica para corpos** de serialização do corpo de uma requisição
+- Existem outras libs como:z
+    - Ktor
+    - Volley (google)
+      porem o que a comunidade realmente usa **seria o retrofit mesmo**!
+
+### Permissão de acesso a internet
+
 No android manifest:
 <uses-permission android:name="android.permission.INTERNET" />
 
-### Convertando formato da requisição: 
+### Convertando formato da requisição:
+
 ![img_1.png](img_1.png)
 Se chamarmos assim, o app irá quebrar pois ele sempre vai dar um erro no qual **teremos que
 converter o tipo do jason para algum objeto reoconhecido pelo java/kotlin**(o que ainda não fazemos)
