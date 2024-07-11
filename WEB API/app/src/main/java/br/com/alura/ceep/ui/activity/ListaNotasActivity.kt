@@ -15,6 +15,8 @@ import br.com.alura.ceep.extensions.vaiPara
 import br.com.alura.ceep.model.Nota
 import br.com.alura.ceep.ui.recyclerview.adapter.ListaNotasAdapter
 import br.com.alura.ceep.webclient.RetrofitInicializador
+import br.com.alura.ceep.webclient.model.NotaResposta
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import retrofit2.Call
 
@@ -40,15 +42,21 @@ class ListaNotasActivity : AppCompatActivity() {
                 buscaNotas()
             }
         }
-        //Executa a requisição -> Buscar todas as notas
-        val call: Call<List<Nota>> = RetrofitInicializador().notaService.buscaTodas()
-        //por meio do call.execute() nos temos acesso a resposta dessa requesição
-        val resposta = call.execute()
-        //Queremos ver o body da requisição que seria basicamente o arquivo.jason
-        resposta.body()?.let { notas ->
-            Log.i("ListaNOtas", "onCreate: $notas")
-            
+        lifecycleScope.launch(IO) {
+            //Executa a requisição -> Buscar todas as notas
+            val call: Call<List<NotaResposta>> = RetrofitInicializador().notaService.buscaTodas()
+            //por meio do call.execute() nos temos acesso a resposta dessa requesição
+            val resposta = call.execute()
+            //Queremos ver o body da requisição que seria basicamente o arquivo.jason
+            resposta.body()?.let { notasResposta ->
+                val notas: List<Nota> = notasResposta.map {
+                    it.nota //Chama a property de conversão para os valores dos que a gente quer internamente
+                }
+                Log.i("ListaNOtas", "onCreate: $notas")
+
+            }
         }
+
     }
 
     /**

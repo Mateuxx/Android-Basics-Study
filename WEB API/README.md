@@ -60,3 +60,5 @@ No android manifest:
 ![img_1.png](img_1.png)
 Se chamarmos assim, o app irá quebrar pois ele sempre vai dar um erro no qual **teremos que
 converter o tipo do jason para algum objeto reoconhecido pelo java/kotlin**(o que ainda não fazemos)
+
+UsesClearTextTRaffic: não usar no dia a dia apenas para fins didaticos -> usar o https
