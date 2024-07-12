@@ -38,7 +38,7 @@ Activities) ou serviços (Services).
 - Como rodar a api:
     - a partir de um terminal ou prompt de comando, acesse o diretório/pasta onde o arquivo
       server.jar está e rode o seguinte comando java -jar server.jar.
-    - acessando o endereço http://localhost:8080 
+    - acessando o endereço http://localhost:8080
 
 ### Retrofit
 
@@ -62,3 +62,13 @@ Se chamarmos assim, o app irá quebrar pois ele sempre vai dar um erro no qual *
 converter o tipo do jason para algum objeto reoconhecido pelo java/kotlin**(o que ainda não fazemos)
 
 UsesClearTextTRaffic: não usar no dia a dia apenas para fins didaticos -> usar o https
+
+### call.execute() != call.enqueue
+
+- call.execute() : **Chamada é feita de forma Sincronca**.Trava a nossa thread principal, temos que
+  criar courotines o que não faz isso da melhor forma possivel, por isso nas implementações passadas
+  utilizamos dentro de lifecycle.launch(IO) para não bloquear a ui.
+- call.enqueue() :  **A chamada é assíncrona**, ou seja, não bloqueia a thread na qual é executada. A
+  requisição é feita em segundo plano e os callbacks são chamados quando a resposta é recebida ou
+  ocorre um erro.
+- Usaremos a abordagem de courotines do retrofit

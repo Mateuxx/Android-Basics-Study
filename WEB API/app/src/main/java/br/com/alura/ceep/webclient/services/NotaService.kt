@@ -11,5 +11,5 @@ interface NotaService {
      * localhost:8080/notas
      */
     @GET("notas")
-    fun buscaTodas(): Call<List<NotaResposta>>
+    suspend fun  buscaTodas() : List<NotaResposta>
 }
