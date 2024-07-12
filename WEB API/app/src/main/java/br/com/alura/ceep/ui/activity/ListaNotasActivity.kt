@@ -42,10 +42,15 @@ class ListaNotasActivity : AppCompatActivity() {
                 buscaNotas()
             }
         }
+        //Thread paralela
         lifecycleScope.launch(IO) {
             //Executa a requisição -> Buscar todas as notas
             val call: Call<List<NotaResposta>> = RetrofitInicializador().notaService.buscaTodas()
-            //por meio do call.execute() nos temos acesso a resposta dessa requesição
+            /**
+             * por meio do call.execute() nos temos acesso a resposta dessa requesição
+             * É uma requesição sincronna -> Trava a trhead principal e ela só funciona a funcionar
+             * quando ela essa call termina de ser executada
+             */
             val resposta = call.execute()
             //Queremos ver o body da requisição que seria basicamente o arquivo.jason
             resposta.body()?.let { notasResposta ->
