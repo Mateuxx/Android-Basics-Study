@@ -13,6 +13,7 @@ class RetrofitInicializador {
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
 
+    // Cria uma instância do NotaService
     val notaService: NotaService = retrofit.create(NotaService::class.java)
 
 
