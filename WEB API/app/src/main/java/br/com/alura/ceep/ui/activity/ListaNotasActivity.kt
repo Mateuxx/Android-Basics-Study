@@ -13,6 +13,7 @@ import br.com.alura.ceep.database.AppDatabase
 import br.com.alura.ceep.databinding.ActivityListaNotasBinding
 import br.com.alura.ceep.extensions.vaiPara
 import br.com.alura.ceep.model.Nota
+import br.com.alura.ceep.repository.NotaRepository
 import br.com.alura.ceep.ui.recyclerview.adapter.ListaNotasAdapter
 import br.com.alura.ceep.webclient.NotaWebClient
 import br.com.alura.ceep.webclient.RetrofitInicializador
@@ -25,7 +26,7 @@ import retrofit2.Response
 
 class ListaNotasActivity : AppCompatActivity() {
 
-    private val binding by lazy {
+    private val binding by lazy {   
         ActivityListaNotasBinding.inflate(layoutInflater)
     }
     private val adapter by lazy {
@@ -39,69 +40,31 @@ class ListaNotasActivity : AppCompatActivity() {
         NotaWebClient()
     }
 
+    private val repository by lazy {
+        NotaRepository(
+            AppDatabase.instancia(this).notaDao(),
+            NotaWebClient()
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         configuraFab()
         configuraRecyclerView()
         lifecycleScope.launch {
-            val notas = webClient.buscaTodas()
-            Log.i("ListaNotas", "onCreate: retrofit coroutines $notas")
+            launch {
+                atualizaTodas() //faz uma requisição! por isso outra courotine
+            }
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 buscaNotas()
             }
         }
 
-        //retrofitSemCourotines()
-
     }
 
-    private fun retrofitSemCourotines() {
-      //  val call: Call<List<NotaResposta>> = RetrofitInicializador().notaService.buscaTodas()
-        //Thread paralela
-        //        lifecycleScope.launch(IO) {
-        //            //Executa a requisição -> Buscar todas as notas
-        //
-        //            /**
-        //             * por meio do call.execute() nos temos acesso a resposta dessa requesição
-        //             * É uma requesição sincronna -> Trava a trhead principal e ela só funciona a funcionar
-        //             * quando ela essa call terminar de ser executada
-        //             */
-        //            val resposta = call.execute() //Trava a thread principal
-        //            //Queremos ver o body da requisição que seria basicamente o arquivo.jason
-        //            resposta.body()?.let { notasResposta ->
-        //                val notas: List<Nota> = notasResposta.map {
-        //                    it.nota //Chama a property de conversão para os valores dos que a gente quer internamente
-        //                }
-        //                Log.i("ListaNOtas", "onCreate: $notas")
-        //
-        //            }
-        //        }
-
-//        /**
-//         * Não necessita de uma thread paralela para executar ele ja tem isso na sua implementação
-//         * No fim da sua execução ele volta para um desses dois metodos abaixo
-//         */
-//        call.enqueue(object : Callback<List<NotaResposta>?> {
-//            //Devolve a resposta pra gente
-//            override fun onResponse(
-//                call: Call<List<NotaResposta>?>,
-//                resposta: Response<List<NotaResposta>?>
-//            ) {
-//                resposta.body()?.let { notasResposta ->
-//                    val notas: List<Nota> = notasResposta.map {
-//                        it.nota //Chama a property de conversão para os valores dos que a gente quer internamente
-//                    }
-//                    Log.i("ListaNOtas", "onCreate: $notas")
-//
-//                }
-//            }
-//
-//            //Para qualquer eventual erro na comunicação
-//            override fun onFailure(call: Call<List<NotaResposta>?>, t: Throwable) {
-//                Log.e("ListaNotas", "onFailure: ", t)
-//            }
-//        })
+    private suspend fun atualizaTodas() {
+        repository.atualizaTodas()
     }
 
     /**
@@ -128,7 +91,7 @@ class ListaNotasActivity : AppCompatActivity() {
     }
 
     private suspend fun buscaNotas() {
-        dao.buscaTodas()
+        repository.buscaTodas()
             .collect { notasEncontradas ->
                 binding.activityListaNotasMensagemSemNotas.visibility =
                     if (notasEncontradas.isEmpty()) {

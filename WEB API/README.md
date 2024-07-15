@@ -68,7 +68,14 @@ UsesClearTextTRaffic: não usar no dia a dia apenas para fins didaticos -> usar 
 - call.execute() : **Chamada é feita de forma Sincronca**.Trava a nossa thread principal, temos que
   criar courotines o que não faz isso da melhor forma possivel, por isso nas implementações passadas
   utilizamos dentro de lifecycle.launch(IO) para não bloquear a ui.
-- call.enqueue() :  **A chamada é assíncrona**, ou seja, não bloqueia a thread na qual é executada. A
+- call.enqueue() :  **A chamada é assíncrona**, ou seja, não bloqueia a thread na qual é executada.
+  A
   requisição é feita em segundo plano e os callbacks são chamados quando a resposta é recebida ou
   ocorre um erro.
 - Usaremos a abordagem de courotines do retrofit
+
+### Repository
+
+- Para tirarmos informações da UI utilzamos o repopository para fazer o meio de campo na comunicação
+  entre a UI e os services de WEB e de DB. A Activity se comunica com o Repository que irá se
+  comunicar com o Web Client ou o Banco de Dados.
