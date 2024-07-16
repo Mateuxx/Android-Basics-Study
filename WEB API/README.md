@@ -79,3 +79,6 @@ UsesClearTextTRaffic: não usar no dia a dia apenas para fins didaticos -> usar 
 - Para tirarmos informações da UI utilzamos o repopository para fazer o meio de campo na comunicação
   entre a UI e os services de WEB e de DB. A Activity se comunica com o Repository que irá se
   comunicar com o Web Client ou o Banco de Dados.
+
+### UUID 
+- Link : https://en.wikipedia.org/wiki/Universally_unique_identifier

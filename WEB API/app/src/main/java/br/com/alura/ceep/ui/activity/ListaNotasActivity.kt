@@ -32,13 +32,6 @@ class ListaNotasActivity : AppCompatActivity() {
     private val adapter by lazy {
         ListaNotasAdapter(this)
     }
-    private val dao by lazy {
-        AppDatabase.instancia(this).notaDao()
-    }
-
-    private val webClient by lazy {
-        NotaWebClient()
-    }
 
     private val repository by lazy {
         NotaRepository(
@@ -63,6 +56,9 @@ class ListaNotasActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Repository faz a chamada para atualizar as notas
+     */
     private suspend fun atualizaTodas() {
         repository.atualizaTodas()
     }
