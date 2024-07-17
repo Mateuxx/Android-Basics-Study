@@ -1,6 +1,7 @@
 package br.com.alura.ceep.webclient.model
 
 import br.com.alura.ceep.model.Nota
+import java.util.UUID
 
 /**
  * Resposta do ID no qual recebemos
@@ -20,7 +21,7 @@ class NotaResposta (
      *
      */
     val nota : Nota get() = Nota (
-        id = 0,
+        id = id ?: UUID.randomUUID().toString(),
         titulo = titulo ?: "",
         descricao = descricao ?: "",
         imagem = imagem ?: ""
