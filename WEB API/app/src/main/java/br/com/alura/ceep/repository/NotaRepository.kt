@@ -24,4 +24,21 @@ class NotaRepository(
             dao.salva(notas)
         }
     }
+
+    //Apenas o encapsulamento da parte do Repository
+    fun buscaPorId(id: String): Flow<Nota> {
+        return dao.buscaPorId(id)
+    }
+
+    suspend fun remove(id: String) {
+        return dao.remove(id)
+    }
+
+    /**
+     * Encapsulamento no qual salva na API
+     */
+    suspend fun salva(nota: Nota) {
+        dao.salva(nota)
+        webClient.salva(nota)
+    }
 }

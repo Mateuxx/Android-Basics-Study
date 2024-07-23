@@ -13,7 +13,9 @@ import br.com.alura.ceep.database.AppDatabase
 import br.com.alura.ceep.databinding.ActivityFormNotaBinding
 import br.com.alura.ceep.extensions.tentaCarregarImagem
 import br.com.alura.ceep.model.Nota
+import br.com.alura.ceep.repository.NotaRepository
 import br.com.alura.ceep.ui.dialog.FormImagemDialog
+import br.com.alura.ceep.webclient.NotaWebClient
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -26,9 +28,14 @@ class FormNotaActivity : AppCompatActivity() {
     //Recurso mais reativo para armazenar as Imagens!! Abordar esse estilo!
     private var imagem: MutableStateFlow<String?> = MutableStateFlow(null)
 
-    private val dao by lazy {
-        AppDatabase.instancia(this).notaDao()
+    //quem fara a comunicação será o repository como ja definimos previamente
+    private val repository by lazy {
+        NotaRepository(
+            AppDatabase.instancia(this).notaDao(),
+            NotaWebClient()
+        )
     }
+
     private var notaId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +70,7 @@ class FormNotaActivity : AppCompatActivity() {
 
     private suspend fun tentaBuscarNota() {
         notaId?.let {id ->
-            dao.buscaPorId(id)
+            repository.buscaPorId(id)
                 .filterNotNull()
                 .collect { notaEncontrada ->
                     notaId = notaEncontrada.id
@@ -127,7 +134,7 @@ class FormNotaActivity : AppCompatActivity() {
     private fun remove() {
         lifecycleScope.launch {
             notaId?.let { id ->
-                dao.remove(id)
+                repository.remove(id)
             }
             finish()
         }
@@ -139,7 +146,7 @@ class FormNotaActivity : AppCompatActivity() {
     private fun salva() {
         val nota = criaNota()
         lifecycleScope.launch {
-            dao.salva(nota)
+            repository.salva(nota)
             finish()
         }
     }

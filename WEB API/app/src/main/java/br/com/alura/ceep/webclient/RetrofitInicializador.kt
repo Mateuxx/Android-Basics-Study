@@ -8,7 +8,7 @@ class RetrofitInicializador {
 
     // Instancia do retrofit
     private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("http://192.168.1.107:8080/")
+        .baseUrl("http://192.168.1.109:8080/")
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
 
