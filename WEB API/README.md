@@ -94,3 +94,13 @@ UsesClearTextTRaffic: não usar no dia a dia apenas para fins didaticos -> usar 
 - O **HTTP PUT** é usado para mandar dados do lado do servidor para quando queremos **_atualizar uma
   informação ja existente_**
 
+### Flags de Sincronização:
+
+- Caso que inserimos algum lembrete sem acesso a internet ? teria que salvar no Banco e depois
+  mandar para api.
+    - Alguma outra forma de não conseguir se conectar com a api.
+
+- Com isso, fazemos uma **_flags_** para saber se alguma nota/registro para saber se foi ou não
+  sincronizado
+    - Assim o usuário pode colocar o que desejar no app e com as condições favoraveis(acesso a
+      internet) ele faz o envio para a API
