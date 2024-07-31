@@ -4,6 +4,7 @@ import br.com.alura.ceep.database.dao.NotaDao
 import br.com.alura.ceep.model.Nota
 import br.com.alura.ceep.webclient.NotaWebClient
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 
 class NotaRepository(
     private val dao: NotaDao,
@@ -19,9 +20,12 @@ class NotaRepository(
     /**
      * Busca as notas da api e salva no banco de dados
      */
-    suspend fun atualizaTodas () {
+    private suspend fun atualizaTodas () {
         webClient.buscaTodas()?.let { notas ->
-            dao.salva(notas)
+            val notasSincronizadas = notas.map { nota ->
+                nota.copy(sincronizada = true)
+            }
+            dao.salva(notasSincronizadas) //atualiza as infos que veio da web API
         }
     }
 
@@ -39,6 +43,22 @@ class NotaRepository(
      */
     suspend fun salva(nota: Nota) {
         dao.salva(nota)
-        webClient.salva(nota)
+        if (webClient.salva(nota)) {
+            //transformar a nota numa copia sincronizada
+            val notaSincronizada = nota.copy(sincronizada = true)
+            dao.salva(notaSincronizada)
+        }
+    }
+
+    /**
+     * Notas que foram criadas offline (0) e com a que está na API para sincronizar
+     */
+    suspend fun sincroniza(){
+        //pegar as notas não sincronizadas e sincronizar
+        val notasNaoSincronizadas = dao.buscaNaoSincronizadas().first()
+        notasNaoSincronizadas.forEach { notasNaoSincroziada->
+            salva(notasNaoSincroziada) //salva as notas sincronizadas na API
+        }
+        atualizaTodas()
     }
 }

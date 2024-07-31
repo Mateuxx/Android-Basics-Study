@@ -47,20 +47,20 @@ class ListaNotasActivity : AppCompatActivity() {
         configuraRecyclerView()
         lifecycleScope.launch {
             launch {
-                atualizaTodas() //faz uma requisição! por isso outra courotine
+                sincroniza() //faz uma requisição! por isso outra courotine
             }
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 buscaNotas()
             }
         }
-
     }
 
     /**
      * Repository faz a chamada para atualizar as notas
+     * Agora tbm sincroniza todas as  notas
      */
-    private suspend fun atualizaTodas() {
-        repository.atualizaTodas()
+    private suspend fun sincroniza() {
+        repository.sincroniza()
     }
 
     /**

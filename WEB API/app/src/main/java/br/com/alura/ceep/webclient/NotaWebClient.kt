@@ -33,33 +33,25 @@ class NotaWebClient {
     /**
      * Salva envia os dados da nota do seu aplicativo para a API
      */
-    suspend fun salva(nota: Nota) {
+    suspend fun salva(nota: Nota): Boolean {
         try {
-
             /**
              * val resposta -> recebe o resultado do tipo Response<NotaResposta>
              * Alem disso, faz as operações  de atribuição abaixo
              */
             val resposta: Response<NotaResposta> = notaService.salva(
+
                 nota.id, NotaRequisicao(
                     titulo = nota.titulo,
                     descricao = nota.descricao,
                     imagem = nota.imagem
                 )
             )
-            //checa se a operação foi bem sucessidida na API
-            if (resposta.isSuccessful) {
-                Log.i(
-                    TAG,
-                    "salva: Nota salva com sucesso!"
-                ) //as vezes uma nota salva com sucesso nao nos dar o resultado que esperavamos la na a1pi
-            }
-            else {
-                Log.i(TAG, "salva: nota não foi salva!")
-            }
-
+            // se a requisição deu certo  retorna true caso contrario, falso
+            return resposta.isSuccessful
         } catch (e: Exception) {
             Log.e("NotaWebClient", "salva: falaha ao tentar salvar", e)
         }
+        return false
     }
 }

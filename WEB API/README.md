@@ -95,12 +95,17 @@ UsesClearTextTRaffic: não usar no dia a dia apenas para fins didaticos -> usar 
   informação ja existente_**
 
 ### Flags de Sincronização:
-
 - Caso que inserimos algum lembrete sem acesso a internet ? teria que salvar no Banco e depois
   mandar para api.
     - Alguma outra forma de não conseguir se conectar com a api.
 
-- Com isso, fazemos uma **_flags_** para saber se alguma nota/registro para saber se foi ou não
-  sincronizado
-    - Assim o usuário pode colocar o que desejar no app e com as condições favoraveis(acesso a
-      internet) ele faz o envio para a API
+- Com isso, fazemos uma **_flag_** para saber se alguma nota/registro foi ou não
+  sincronizado.
+    - Assim o usuário pode colocar o que desejar no app e offline e com as condições favoraveis(
+      acesso a internet) ele o envio para a API.
+- Comportamento: se salvarmos na web api -> então está sincronizado
+  - Quando isso acontecer e recebemos e resposta de sucesso mudamos a flag.
+  - Temos que criar um metodo para fazer essa sincronização 
+    - Pegar aqui que não foi sincronizado e de fato fazer essa sincronização
+      - mudar a flag de 0 para 1 no db
+
