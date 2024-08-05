@@ -13,14 +13,14 @@ class NotaRepository(
     /**
      * busca todas la no DB
      */
-    fun buscaTodas() : Flow<List<Nota>> {
+    fun buscaTodas(): Flow<List<Nota>> {
         return dao.buscaTodas()
     }
 
     /**
      * Busca as notas da api e salva no banco de dados
      */
-    private suspend fun atualizaTodas () {
+    private suspend fun atualizaTodas() {
         webClient.buscaTodas()?.let { notas ->
             val notasSincronizadas = notas.map { nota ->
                 nota.copy(sincronizada = true)
@@ -35,8 +35,10 @@ class NotaRepository(
     }
 
     suspend fun remove(id: String) {
-        dao.remove(id)//remove no DB
-        webClient.remove(id)  //Remove na web api
+        dao.desativa(id) //faz a desativação internamente - SoftDelete (offline)
+        if (webClient.remove(id)){ //remove la na api
+            dao.remove(id)//para então podermos deletar de fato no db
+        }
     }
 
     /**
@@ -54,12 +56,20 @@ class NotaRepository(
     /**
      * Notas que foram criadas offline (0) e com a que está na API para sincronizar
      */
-    suspend fun sincroniza(){
+    suspend fun sincroniza() {
+
+        //Pegar as que foram deletadas e sincronizar na API
+        val notasDesativadas = dao.buscaDesativadas().first()
+        notasDesativadas.forEach {
+            remove(it.id)
+        }
+
         //pegar as notas não sincronizadas e sincronizar
         val notasNaoSincronizadas = dao.buscaNaoSincronizadas().first()
-        notasNaoSincronizadas.forEach { notasNaoSincroziada->
+        notasNaoSincronizadas.forEach { notasNaoSincroziada ->
             salva(notasNaoSincroziada) //salva as notas sincronizadas na API
         }
+
         atualizaTodas()
     }
 }

@@ -112,3 +112,9 @@ UsesClearTextTRaffic: não usar no dia a dia apenas para fins didaticos -> usar 
 # FLags de Remoção
 - Flags nas quais tem que ser desativas, ou seja, foram deletados pelo usuário até no cenario 
 em que o app está offline
+
+![img_3.png](img_3.png)
+
+- Caso o usuario clique para remover offline, a flag de desativação mudará de valor e ela a principio
+não será exibida para o usuário **(SoftDelete)**
+- Ao conectar a internet irá ser removido na API e no DB LOCAL - **HardDelete** 
