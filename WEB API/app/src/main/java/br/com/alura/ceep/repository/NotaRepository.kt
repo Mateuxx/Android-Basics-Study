@@ -35,7 +35,8 @@ class NotaRepository(
     }
 
     suspend fun remove(id: String) {
-        return dao.remove(id)
+        dao.remove(id)//remove no DB
+        webClient.remove(id)  //Remove na web api
     }
 
     /**

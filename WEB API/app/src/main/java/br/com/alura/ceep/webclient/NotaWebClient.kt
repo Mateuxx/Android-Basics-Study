@@ -8,9 +8,6 @@ import br.com.alura.ceep.webclient.services.NotaService
 import retrofit2.Response
 import java.lang.Exception
 
-/**
- * Similar ao Dao do Room, porem focado para requisições web
- */
 class NotaWebClient {
 
     private val TAG: String? by lazy { "NotaWebClient" }
@@ -51,6 +48,19 @@ class NotaWebClient {
             return resposta.isSuccessful
         } catch (e: Exception) {
             Log.e("NotaWebClient", "salva: falaha ao tentar salvar", e)
+        }
+        return false
+    }
+
+    /**
+     * Remover uma nota la na web API
+     */
+    suspend fun remove(id: String): Boolean {
+        try {
+            val resposta = notaService.remove(id)
+            return resposta.isSuccessful //
+        } catch (e: Exception) {
+            Log.e(TAG, "remove: Falha ao tentar removar a nota", e)
         }
         return false
     }

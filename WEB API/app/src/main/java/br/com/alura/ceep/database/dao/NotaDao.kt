@@ -27,8 +27,6 @@ interface NotaDao {
     suspend fun remove(id: String)
 
     @Query("SELECT * FROM Nota WHERE sincronizada = 0")
-    fun buscaNaoSincronizadas(): Flow<List<Nota>> {
-        TODO("Not yet implemented")
-    }
+    fun buscaNaoSincronizadas(): Flow<List<Nota>>
 
 }

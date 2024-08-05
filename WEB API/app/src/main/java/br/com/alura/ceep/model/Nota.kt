@@ -14,5 +14,7 @@ data class Nota(
     val descricao: String,
     val imagem: String? = null,
     @ColumnInfo(defaultValue = "0")
-    val sincronizada: Boolean = false //Flag para sincronização dos dados com API
+    val sincronizada: Boolean = false, //Flag para sincronização dos dados com API
+    @ColumnInfo(defaultValue = "0")
+    val desativada: Boolean = false //Flag de desativação - deletar uma nota
 )

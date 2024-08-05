@@ -109,3 +109,6 @@ UsesClearTextTRaffic: não usar no dia a dia apenas para fins didaticos -> usar 
     - Pegar aqui que não foi sincronizado e de fato fazer essa sincronização
       - mudar a flag de 0 para 1 no db
 
+# FLags de Remoção
+- Flags nas quais tem que ser desativas, ou seja, foram deletados pelo usuário até no cenario 
+em que o app está offline
